@@ -1,0 +1,13 @@
+body{
+background-color:black;
+
+}
+
+.card{
+border-color: black;
+border-radius: 1%;
+}
+.row{
+    display: flex;
+    justify-content: space-evenly;
+}
