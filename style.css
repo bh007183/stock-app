@@ -1,8 +1,6 @@
 body{
-background-color:black;
-
+background-image: url(backdrop.jpg);
 }
-
 .card{
 border-color: black;
 border-radius: 1%;
@@ -16,5 +14,12 @@ border-radius: 1%;
     justify-content: center;
     align-items: center;
     color: white;
+    font-size: large;
+}
+.featured{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:greenyellow;
     font-size: large;
 }

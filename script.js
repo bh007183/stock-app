@@ -1,4 +1,17 @@
 // API Stocks TYZJSQ867Y6KODJJ
+
+var AAPL = new WebSocket("wss://ws.finnhub.io?token=bvqegnf48v6s3bgpr40g")
+AAPL.addEventListener('open', function (event){
+    AAPL.send(JSON.stringify({'type':'subscribe', 'symbol': 'AAPL'}))
+})
+AAPL.addEventListener('message', function (event) {
+    var realTimeData = JSON.parse(event.data)
+    $(".featured").text(realTimeData.data[0].p + "|" + realTimeData.data[0].s)
+    
+    
+});
+
+
 ///////Functions For Clock In Upper Right Hand Corner////////
 function doubleDidget(x){
 if(x < "10"){
