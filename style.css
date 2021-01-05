@@ -11,3 +11,10 @@ border-radius: 1%;
     display: flex;
     justify-content: space-evenly;
 }
+.clock{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: large;
+}
