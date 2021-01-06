@@ -1,5 +1,4 @@
 // API Stocks TYZJSQ867Y6KODJJ
-
 var storedTicker = JSON.parse(localStorage.getItem("ticker")) || []
 ///////////FUNCTION FOR DISPLAYING LOCALY STORED TICKERS. CALLED HERE AND WHEN SEARCH BUTTON PUSHED.///
 dropdownTicker()
@@ -10,9 +9,12 @@ for(var i = 0; i < storedTicker.length; i++){
             $("<a>")
             .addClass("dropdown-item dropdown-ticker-history")
             .attr("href", "#")
-            .text(storedTicker[i])
+            .text(storedTicker[i]),
+            $("<hr>")  
         )
-    )                
+         
+    )          
+       
 }
 }
 /////////FUNCTION FOR DISPLAYING LIVE FEED. CALLED HERE AND WHEN SEARCH BUTTON CLICKED///////////////////
@@ -32,6 +34,7 @@ livePrice.addEventListener('message', function (event) {
     }
 });
 }
+////////FUNCTION FOR DISPLAYING BASIC COMPANY INFO IN SEARCH BOX. CALLED HERE AND WHEN SEARCH BUTTON CLICKED///////////////
 basicCompanyInfo()
 function basicCompanyInfo(){
 $.ajax({
@@ -78,6 +81,18 @@ live()
 basicCompanyInfo()
 })
 ///////////////////////////////////////////////////////////
+$(".dropdown-ticker-history").on("click", function(event){
+    event.stopImmediatePropagation()
+    var ticker = $(event.target).text() 
+    console.log(ticker)
+    storedTicker.push(ticker)
+    localStorage.setItem("ticker", JSON.stringify(storedTicker))
+    $(".past-ticker-search").empty()
+    dropdownTicker()
+    live()
+    basicCompanyInfo()
+
+})
 
 
 $.ajax({
