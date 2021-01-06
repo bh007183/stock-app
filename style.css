@@ -3,7 +3,8 @@ background-image: url(backdrop.jpg);
 }
 .card{
 border-color: black;
-border-radius: 1%;
+border-radius: 10%;
+background-color: grey;
 }
 .row{
     display: flex;
@@ -25,4 +26,7 @@ border-radius: 1%;
 }
 .main-container{
     padding-top: 2vw;
+}
+.display{
+    text-align: center;
 }

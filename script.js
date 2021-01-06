@@ -5,8 +5,8 @@ var storedTicker = JSON.parse(localStorage.getItem("ticker")) || []
 dropdownTicker()
 function dropdownTicker(){
 for(var i = 0; i < storedTicker.length; i++){
-    $(".past-ticker-search").append(
-        $("<li>").prepend(
+    $(".past-ticker-search").prepend(
+        $("<li>").append(
             $("<a>")
             .addClass("dropdown-item dropdown-ticker-history")
             .attr("href", "#")
@@ -14,6 +14,36 @@ for(var i = 0; i < storedTicker.length; i++){
         )
     )                
 }
+}
+/////////FUNCTION FOR DISPLAYING LIVE FEED. CALLED HERE AND WHEN SEARCH BUTTON CLICKED///////////////////
+live()
+function live(){
+var livePrice = new WebSocket("wss://ws.finnhub.io?token=bvqegnf48v6s3bgpr40g")
+livePrice.addEventListener('open', function (event){
+    livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': "AAPL"}))
+    livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': storedTicker[storedTicker.length -1]}))
+})
+livePrice.addEventListener('message', function (event) {
+    var realTimeData = JSON.parse(event.data)
+    $(".featured").text(realTimeData.data[0].p + "|" + realTimeData.data[0].s)
+    for(var i = 0; i < realTimeData.data.length; i++)
+    if(realTimeData.data[i].s === storedTicker[storedTicker.length -1]){
+        $(".live-price").text(realTimeData.data[i].p)
+    }
+});
+}
+basicCompanyInfo()
+function basicCompanyInfo(){
+$.ajax({
+    url:"https://finnhub.io/api/v1/stock/profile2?symbol=" + storedTicker[storedTicker.length -1] + "&token=bvqegnf48v6s3bgpr40g",
+    method: "GET"
+}).then(function(companyInfo){
+    console.log(companyInfo)
+    $(".name").text(companyInfo.name)
+    $(".exchange").text(companyInfo.exchange)
+    $(".ticker").text(companyInfo.ticker)
+    
+})
 }
 
 ///////Functions For Clock In Upper Right Hand Corner////////
@@ -32,16 +62,7 @@ function doubleDidget(x){
 
 
 
-var AAPL = new WebSocket("wss://ws.finnhub.io?token=bvqegnf48v6s3bgpr40g")
-AAPL.addEventListener('open', function (event){
-    AAPL.send(JSON.stringify({'type':'subscribe', 'symbol': "AAPL"}))
-})
-AAPL.addEventListener('message', function (event) {
-    var realTimeData = JSON.parse(event.data)
-    $(".featured").text(realTimeData.data[0].p + "|" + realTimeData.data[0].s)
-    
-    
-});
+
 
 
 
@@ -53,6 +74,8 @@ storedTicker.push(ticker)
 localStorage.setItem("ticker", JSON.stringify(storedTicker))
 $(".past-ticker-search").empty()
 dropdownTicker()
+live()
+basicCompanyInfo()
 })
 ///////////////////////////////////////////////////////////
 
