@@ -24,6 +24,14 @@ background-color: grey;
     color:greenyellow;
     font-size: large;
 }
+.AAPL{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:greenyellow;
+    font-size: large;
+    margin-top: 1vw;
+}
 .main-container{
     padding-top: 2vw;
 }

@@ -27,7 +27,7 @@ livePrice.addEventListener('open', function (event){
 })
 livePrice.addEventListener('message', function (event) {
     var realTimeData = JSON.parse(event.data)
-    $(".featured").text(realTimeData.data[0].p + "|" + realTimeData.data[0].s)
+    $(".featured").text(realTimeData.data[0].p)
     for(var i = 0; i < realTimeData.data.length; i++)
     if(realTimeData.data[i].s === storedTicker[storedTicker.length -1]){
         $(".live-price").text(realTimeData.data[i].p)
