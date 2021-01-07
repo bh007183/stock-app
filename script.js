@@ -30,7 +30,6 @@ livePrice.addEventListener('open', function (event){
 })
 livePrice.addEventListener('message', function (event) {
     const realTimeData = JSON.parse(event.data)
-    console.log(realTimeData.data)
     for (let i = 0; i < realTimeData.data.length; i++){
         if(realTimeData.data[i].s === "AAPL"){
             $(".featured1").text(realTimeData.data[i].p)
