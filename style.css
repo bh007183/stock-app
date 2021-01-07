@@ -3,7 +3,7 @@ background-image: url(backdrop.jpg);
 }
 .card{
 border-color: black;
-border-radius: 10%;
+border-radius: 1%;
 background-color: grey;
 }
 .row{
