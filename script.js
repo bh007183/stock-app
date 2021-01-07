@@ -122,10 +122,8 @@ $.ajax({
 
 $.ajax({
     method: "GET",
-    url:"https://finnhub.io/api/v1/stock/candle?symbol=AAPL&resolution=30&from=1609459200&to=1609981597&token=bvqegnf48v6s3bgpr40g"
+    url:"https://finnhub.io/api/v1/stock/candle?symbol=FSLY&resolution=30&from=1609459200&to=1609981597&token=bvqegnf48v6s3bgpr40g"
 }).then(function (event){
-    
- 
     var options = {
         series: [{
         data: [{
@@ -142,12 +140,10 @@ $.ajax({
         align: 'left'
       },
       xaxis: {
-        
-        xaxis: {
-            labels: {
-              format: 'HH',
-            }
-          }
+            type: 'datetime',
+            axisBorder: {
+              offsetX: 13
+            }    
       },
       yaxis: {
         tooltip: {
@@ -157,7 +153,7 @@ $.ajax({
       };
 
     for(let i = 0; i < event.t.length; i++){
-        let date = event.t[i]
+        let date = event.t[i] * 1000
         let price = [event.o[i], event.h[i], event.l[i], event.c[i]]
      options.series[0].data[i] = {x: new Date(date), y: price}
      
