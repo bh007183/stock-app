@@ -5,6 +5,7 @@ background-image: url(backdrop.jpg);
 border-color: black;
 border-radius: 1%;
 background-color: grey;
+opacity: 0.9;
 }
 .row{
     display: flex;
@@ -17,14 +18,14 @@ background-color: grey;
     color: white;
     font-size: large;
 }
-.featured{
+.result-color{
     display:flex;
     justify-content: center;
     align-items: center;
-    color:greenyellow;
+    color:purple;
     font-size: large;
 }
-.AAPL{
+.ticker-color{
     display:flex;
     justify-content: center;
     align-items: center;

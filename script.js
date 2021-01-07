@@ -23,11 +23,28 @@ function live(){
 const livePrice = new WebSocket("wss://ws.finnhub.io?token=bvqegnf48v6s3bgpr40g")
 livePrice.addEventListener('open', function (event){
     livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': "AAPL"}))
+    livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': "MSFT"}))
+    livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': "GOOGL"}))
+    livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': "AMZN"}))
     livePrice.send(JSON.stringify({'type':'subscribe', 'symbol': storedTicker[storedTicker.length -1]}))
 })
 livePrice.addEventListener('message', function (event) {
     const realTimeData = JSON.parse(event.data)
-    $(".featured").text(realTimeData.data[0].p)
+    console.log(realTimeData.data)
+    for (let i = 0; i < realTimeData.data.length; i++){
+        if(realTimeData.data[i].s === "AAPL"){
+            $(".featured1").text(realTimeData.data[i].p)
+        }
+        if(realTimeData.data[i].s === "MSFT"){
+            $(".featured2").text(realTimeData.data[i].p)
+        }
+        if(realTimeData.data[i].s === "GOOGL"){
+            $(".featured3").text(realTimeData.data[i].p)
+        }
+        if(realTimeData.data[i].s === "AMZN"){
+            $(".featured4").text(realTimeData.data[i].p)
+        }
+    }
     for(var i = 0; i < realTimeData.data.length; i++)
     if(realTimeData.data[i].s === storedTicker[storedTicker.length -1]){
         $(".live-price").text(realTimeData.data[i].p)
@@ -100,82 +117,86 @@ $(".dropdown-ticker-history").on("click", function(event){
 })
 
 
-$.ajax({
-    method:"GET",
-    url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=FSLY&interval=5min&apikey=TYZJSQ867Y6KODJJ"
-}).then(function(intraday){
-    console.log(intraday)
-})
+
+// $.ajax({
+//     method:"GET",
+//     url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=FSLY&interval=5min&apikey=TYZJSQ867Y6KODJJ"
+// }).then(function(intraday){
+//     console.log(intraday)
+// })
+// // $.ajax({
+// //     method: "GET",
+// //     url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=compact&apikey=TYZJSQ867Y6KODJJ"
+// // }).then(function(dayily){
+// //     console.log(dayily)
+// // })
+
 // $.ajax({
 //     method: "GET",
-//     url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=compact&apikey=TYZJSQ867Y6KODJJ"
-// }).then(function(dayily){
-//     console.log(dayily)
+//     url: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=fastly&apikey=TYZJSQ867Y6KODJJ"
+// }).then(function(search){
+//     console.log(search)
 // })
 
-$.ajax({
-    method: "GET",
-    url: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=fastly&apikey=TYZJSQ867Y6KODJJ"
-}).then(function(search){
-    console.log(search)
-})
 
-$.ajax({
-    method: "GET",
-    url:"https://finnhub.io/api/v1/stock/candle?symbol=FSLY&resolution=30&from=1609459200&to=1609981597&token=bvqegnf48v6s3bgpr40g"
-}).then(function (event){
-    var options = {
-        series: [{
-        data: [{
+// setInterval(() => {
+// let currentTime = Date.now()
+// currentTime = currentTime.toString()
+// currentTime = currentTime.slice(0, -3)
+// currentTime = parseInt(currentTime)
+// console.log(currentTime)
+
+// let lastDay24 = currentTime - 86400
+
+// $.ajax({
+//     method: "GET",
+//     url:"https://finnhub.io/api/v1/stock/candle?symbol=FSLY&resolution=1&from=" + lastDay24 + "&to="+ currentTime + "&token=bvqegnf48v6s3bgpr40g"
+// }).then(function (event){
+//     $("#chart").empty();
+//     var options = {
+//         series: [{
+//         data: [{
             
-          },
-        ]
-      }],
-        chart: {
-        type: 'candlestick',
-        height: 350
-      },
-      title: {
-        text: 'CandleStick Chart',
-        align: 'left'
-      },
-      xaxis: {
-            type: 'datetime',
-            axisBorder: {
-              offsetX: 13
-            }    
-      },
-      yaxis: {
-        tooltip: {
-          enabled: true
-        }
-      }
-      };
+//           },
+//         ]
+//       }],
+//         chart: {
+//         type: 'candlestick',
+//         height: 350
+//       },
+//       title: {
+//         text: 'CandleStick Chart',
+//         align: 'left'
+//       },
+//       xaxis: {
+//             type: 'datetime',
+//             axisBorder: {
+//               offsetX: 13
+//             }    
+//       },
+//       yaxis: {
+//         tooltip: {
+//           enabled: true
+//         }
+//       }
+//       };
 
-    for(let i = 0; i < event.t.length; i++){
-        let date = event.t[i] * 1000
-        let price = [event.o[i], event.h[i], event.l[i], event.c[i]]
-     options.series[0].data[i] = {x: new Date(date), y: price}
+//     for(let i = 0; i < event.t.length; i++){
+//         let date = event.t[i] * 1000
+//         let price = [event.o[i], event.h[i], event.l[i], event.c[i]]
+//      options.series[0].data[i] = {x: new Date(date), y: price}
      
-    console.log(options)
+//     console.log(options)
     
    
-    }
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-  chart.render();
+//     }
+//     var chart = new ApexCharts(document.querySelector("#chart"), options);
+//     chart.render();
   
-})
+// })
 
 
+// }, 10000)
 
 
-
-
-
-  
-
-  
-  
-    // console.log(options.series[0].data[0].x)
-    // console.log(options.series[0].data[0].y)
 
