@@ -141,11 +141,10 @@ $.ajax({
     method: "GET",
     url: "https://finnhub.io/api/v1/company-news?symbol=" + storedTicker[storedTicker.length -1] + "&from=2021-01-01&to=2021-01-05&token=bvqegnf48v6s3bgpr40g",
 }).then(function(news){
-    console.log(news[1].headline)
-    for(let i = 0; i < 20; i++ ){
+    for(let i = 0; i < 6; i++ ){
         $(".news")
         .append($("<div>")
-        .addClass("col-md-3 card")
+        .addClass("col-5 card newsspace")
         .append($("<div>").text((news[i].source).toUpperCase()))
         .append($("<a>").attr("href", news[i].url).attr("target", "_blank").append($("<img>").attr("src", news[i].image).css("max-height", "15vw").css("max-width", "10vw")))
         .append($("<p>").text(news[i].headline))
@@ -156,6 +155,16 @@ $.ajax({
 })
 
   
+
+// const request = require('request');
+
+// request('https://finnhub.io/api/v1/stock/profile2?symbol=AAPL&token=bvqegnf48v6s3bgpr40g', { json: true }, (err, res, body) => {
+//   if (err) { return console.log(err); }
+//   console.log(body.url);
+//   console.log(body.explanation);
+// });
+
+
 
 setInterval(() => {
 let currentTime = Date.now()

@@ -71,3 +71,10 @@ img{
 .newstopspace{
     margin-top: 2vw;
 }
+.newsspace{
+    width:30%;
+    height: 45%;
+}
+.specificnewscontainer{
+    opacity: 0;
+}
