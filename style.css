@@ -2,7 +2,7 @@ body{
 background-image: url(backdrop.jpg);
 }
 .card{
-border-color: black;
+border-color: gold;
 border-radius: 1%;
 background-color: grey;
 opacity: 0.9;
@@ -45,11 +45,29 @@ hr{
 }
 img{
     float:right;
-    margin-right: 5vw;
+    
 }
 .title{
-    color: rgb(255, 81, 0);
-    font-size: large;
-    font-style: italic;
+    margin-top: .5vw;
+    color: rgb(167, 40, 218);
+    font-size: 2.5rem;
+    font-family: 'Great Vibes', cursive;;
 
+}
+.search-button{
+    background-color:greenyellow;
+    
+}
+.drop-button{
+    background-color: gold;
+
+}
+.news{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.newstopspace{
+    margin-top: 2vw;
 }

@@ -130,13 +130,32 @@ $(".dropdown-ticker-history").on("click", function(event){
 // //     console.log(dayily)
 // // })
 
+// $.ajax({
+//     method: "GET",
+//     url: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=fastly&apikey=TYZJSQ867Y6KODJJ"
+// }).then(function(search){
+//     console.log(search)
+// })
+
 $.ajax({
     method: "GET",
-    url: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=fastly&apikey=TYZJSQ867Y6KODJJ"
-}).then(function(search){
-    console.log(search)
+    url: "https://finnhub.io/api/v1/company-news?symbol=" + storedTicker[storedTicker.length -1] + "&from=2021-01-01&to=2021-01-05&token=bvqegnf48v6s3bgpr40g",
+}).then(function(news){
+    console.log(news[1].headline)
+    for(let i = 0; i < 20; i++ ){
+        $(".news")
+        .append($("<div>")
+        .addClass("col-md-3 card")
+        .append($("<div>").text((news[i].source).toUpperCase()))
+        .append($("<a>").attr("href", news[i].url).attr("target", "_blank").append($("<img>").attr("src", news[i].image).css("max-height", "15vw").css("max-width", "10vw")))
+        .append($("<p>").text(news[i].headline))
+        )
+        
+
+    }
 })
 
+  
 
 setInterval(() => {
 let currentTime = Date.now()
@@ -164,7 +183,7 @@ $.ajax({
         height: 350
       },
       title: {
-        text: storedTicker[storedTicker.length -1] + ' CandleStick Chart',
+        text: storedTicker[storedTicker.length -1] + ' / CandleStick Chart / Last 24 HR',
         align: 'left'
       },
       xaxis: {
