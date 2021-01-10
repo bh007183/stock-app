@@ -1,4 +1,4 @@
-const { Module } = require("module");
+
 
 
   
@@ -10,4 +10,4 @@ request('https://finnhub.io/api/v1/stock/profile2?symbol=AAPL&token=bvqegnf48v6s
     console.log(body.explanation);
   });
 
-Module.export(request)
+exports.request = request
