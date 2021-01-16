@@ -82,12 +82,6 @@ function doubleDidget(x){
     }, 1000)
 
 
-
-
-
-
-
-
 ////////Input Bar Local Storage/////////
 $(".ticker-search-button").on("click", function(){
 const ticker = $(".ticker-search-input").val() 
@@ -100,6 +94,7 @@ $(".past-ticker-search").empty()
 dropdownTicker()
 live()
 basicCompanyInfo()
+companyNews()
 }
 
 })
@@ -113,16 +108,18 @@ $(".dropdown-ticker-history").on("click", function(event){
     // dropdownTicker()
     live() 
     basicCompanyInfo()
+    companyNews()
       
 
 })
 
 
-
+function companyNews(){
 $.ajax({
     method: "GET",
     url: "https://finnhub.io/api/v1/company-news?symbol=" + storedTicker[storedTicker.length -1] + "&from=2021-01-01&to=2021-01-05&token=bvqegnf48v6s3bgpr40g",
 }).then(function(news){
+        $(".news").empty()
     for(let i = 0; i < 6; i++ ){
         $(".news")
         .append($("<div>")
@@ -132,12 +129,12 @@ $.ajax({
         .append($("<p>").text(news[i].headline))
         )
         
-
     }
 })
+}
 
 
-
+companyNews()
 
 setInterval(() => {
 
